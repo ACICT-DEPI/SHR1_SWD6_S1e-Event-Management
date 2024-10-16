@@ -38,15 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/liked-events', LikedEventController::class)->name('likedEvents');
     Route::get('/saved-events', SavedEventController::class)->name('savedEvents');
     Route::get('/attendind-events', AttendingEventController::class)->name('attendingEvents');
-    Route::post(
-        '/events-like/{id}',
-        LikeSystemController::class
-    )->name('events.like');
-    Route::post(
-        '/events-saved/{id}',
-        SavedEventSystemController::class
-    )->name('events.saved');
-    Route::post('/events-attending/{id}', AttentingSystemController::class)->name('events.attending');
+    Route::post('/events-like/{id}',[LikeSystemController::class,'likeSystem'])->name('events.like');
+    Route::post('/events-saved/{id}',[SavedEventSystemController::class,'saveEvents'])->name('events.saved');
+    Route::post('/events-attending/{id}', [AttentingSystemController::class,'attendingSystem'])->name('events.attending');
 
     Route::post('/events/{id}/comments', StoreCommentController::class)->name('events.comments');
     Route::delete('/events/{id}/comments/{comment}', DeleteCommentController::class)->name('events.comments.destroy');

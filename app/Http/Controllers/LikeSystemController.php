@@ -12,19 +12,20 @@ class LikeSystemController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke($id)
+    public function likeSystem($id)
     {
         //
+        //dd($id);
         $event = Event::findOrFail($id);
         $like= $event->likes->where('user_id',Auth::id())->first();
         if(!is_null($like)){
             $like->delete();
-            return null;
+            return back();
         }else{
             $like = $event->likes()->create([
                 'user_id'=>Auth::id()
             ]);
-            return $like;
+            return back();
         }
     }
 }

@@ -24,25 +24,12 @@
                         eventLike: @js($like),
                         savedEvent: @js($savedEvent),
                         attending: @js($attending),
-                        onHandleLike() {
-                            axios.post(`/events-like/{{ $event->id }}`).then(res => {
-                                this.eventLike = res.data
-                            })
-                        },
-                        onHandleSavedEvent() {
-                            axios.post(`/events-saved/{{ $event->id }}`).then(res => {
-                                this.savedEvent = res.data
-                            })
-                        },
-                        onHandleAttending() {
-                            axios.post(`/events-attending/{{ $event->id }}`).then(res => {
-                                this.attending = res.data
-                            })
-                        }
+                       
                     }">
 
-
-                        <button type="button" @click="onHandleLike"
+                        <form action="{{route('events.like',$event->id)}}" method="post">
+                            @csrf
+                            <button type="submit"
                             class="  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             :class="eventLike ? 'bg-red-700 hover:bg-red-800' : 'bg-slate-400 hover:bg-slate-500'">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -52,7 +39,11 @@
                             </svg>
                             Like
                         </button>
-                        <button type="button" @click="onHandleSavedEvent"
+                        </form>
+
+                        <form action="{{route('events.saved',$event->id)}}" method="post">
+                            @csrf
+                            <button type="submit"
                             class=" focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             :class="savedEvent ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-slate-400 hover:bg-slate-500'">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -62,7 +53,11 @@
                             </svg>
                             Save
                         </button>
-                        <button type="button" @click="onHandleAttending"
+                        </form>
+
+                        <form action="{{route('events.attending',$event->id)}}" method="post">
+                            @csrf
+                            <button type="submit"
                             class=" focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             :class="attending ? 'bg-indigo-700 hover:bg-indigo-800' : 'bg-slate-400 hover:bg-slate-500'">
                             Attending
@@ -72,6 +67,8 @@
                                     d="M1 5h12m0 0L9 1m4 4L9 9" />
                             </svg>
                         </button>
+                        </form>
+
                     </div>
                 @endauth
                 <div class="flex flex-col p-4">

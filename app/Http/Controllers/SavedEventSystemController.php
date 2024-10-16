@@ -11,19 +11,21 @@ class SavedEventSystemController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke($id)
+    public function saveEvents($id)
     {
         //
+
         $event = Event::findOrFail($id);
-        $savedEvent = $event->where('user_id',Auth::id())->first();
+        $savedEvent = $event->savedEvents->where('user_id',Auth::id())->first();
         if(!is_null($savedEvent)){
-            $event->delete();
-            return null;
+            $savedEvent->delete();
+            return back();
         }else{
+            // dd('done');
             $savedEvent = $event->savedEvents()->create([
                 'user_id'=> Auth::id(),
             ]);
-            return $savedEvent;
+            return back();
         }
     }
 }

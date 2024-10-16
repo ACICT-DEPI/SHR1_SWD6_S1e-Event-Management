@@ -11,23 +11,25 @@ class AttentingSystemController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke($id)
+    public function attendingSystem($id)
     {
         //
-
+        //dd($id);
         $event = Event::findOrFail($id);
-        $attending = $event->attendings()->where('user_id',Auth::id());
+        $attending = $event->attendings->where('user_id',Auth::id())->first();
 
         if (!is_null($attending)) {
             # code...
+            //dd($attending);
             $attending->delete();
-            return null;
+            return back();
         }else{
+
             $attending = $event->attendings()->create([
                 'user_id' => Auth::id(),
                 'num_tickets' => 1
             ]);
-            return $attending;
+            return back();
         }
 
     }
