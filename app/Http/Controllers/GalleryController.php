@@ -30,8 +30,8 @@ class GalleryController extends Controller
     public function index()
     {
         //
-        $user = FacadesAuth::id();
-        $galleries = Gallery::all()->where('user_id',$user);
+        // $user = FacadesAuth::id();
+        $galleries = Gallery::all();
 
         return view('Gallery.index',compact('galleries'));
 

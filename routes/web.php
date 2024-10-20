@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendingEventController;
 use App\Http\Controllers\AttentingSystemController;
+use App\Http\Controllers\DashController;
 use App\Http\Controllers\DeleteCommentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventIndexController;
@@ -23,9 +24,7 @@ Route::get('/e', EventIndexController::class)->name('eventIndex');
 Route::get('/e/{id}', EventShowController::class)->name('eventShow');
 Route::get('/galleryIndex', GalleryIndexController::class);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',DashController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
